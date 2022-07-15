@@ -1,4 +1,4 @@
-!pip install yfinance
+#pip install yfinance
 #pip install prophet 
 #pip install streamlit
 
