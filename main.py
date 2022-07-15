@@ -1,6 +1,7 @@
-pip install yfinance
+
 pip install prophet 
 pip install streamlit
+pip install yfinance
 
 import json
 import pandas as pd
