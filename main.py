@@ -1,4 +1,4 @@
-install -U --force-reinstall yfinance
+install -U --force-reinstall --yfinance
 
 import json
 import pandas as pd
