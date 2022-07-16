@@ -1,4 +1,4 @@
-git install yfinance
+install yfinance
 
 import json
 import pandas as pd
