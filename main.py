@@ -1,3 +1,5 @@
+python -m pip install -U --force-reinstall yfinance
+
 import json
 import pandas as pd
 import numpy as np
