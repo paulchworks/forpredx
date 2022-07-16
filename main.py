@@ -1,3 +1,4 @@
+python -m pip install matplotlib
 import json
 import pandas as pd
 import numpy as np
