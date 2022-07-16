@@ -1,4 +1,4 @@
-python -m pip install matplotlib
+pip install -r requirements.txt
 import json
 import pandas as pd
 import numpy as np
