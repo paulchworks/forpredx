@@ -1,4 +1,4 @@
-install yfinance
+install yfinance --upgrade --no-cache-dir
 
 import json
 import pandas as pd
