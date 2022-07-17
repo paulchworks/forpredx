@@ -25,6 +25,9 @@ selected_stocks= st.selectbox("Select currency pair to predict", stocks)
 #n_years = st.slider("Years of prediction:", 1, 4)
 #period = n_years*365
 
+n_days = st.slider("Days of prediction:", 5, 10)
+period = n_days
+
 #@st.cache
 def load_data(ticker):
     data= yf.download(ticker,START, TODAY)
@@ -42,11 +45,35 @@ def plot_raw_data():
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name='price_open'))
     fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name='price_close'))
-    fig.layout.update(title_text="Current year trend since 2021", xaxis_rangeslider_visible=False)
+    fig.layout.update(title_text="Current year trend since 2021", xaxis_rangeslider_visible=True)
     st.plotly_chart(fig)
 
 plot_raw_data()
 
+#####################################################################################################################
+#Forecasting with Prophet
+
+df_train=data[['Date','Close']]
+df_train=df_train.rename(columns={"Date":"ds","Close":"y"})
+
+m = Prophet()
+m.fit(df_train)
+future=m.make_future_dataframe(periods=period)
+forecast=m.predict(future)
+
+st.subheader('Forecast data using Prophet')
+st.write(forecast.tail())
+
+st.write('Forecast Data using Prophet')
+fig1=plot_plotly(m, forecast)
+st.plotly_chart(fig1)
+
+#st.write('forecast components from Prophet')
+#fig2=m.plot_components(forecast)
+#st.write(fig2)
+
+#####################################################################################################################
+#####################################################################################################################
 #Forecast with ForPredx
 #df_EURUSD = pd.read_csv("220524-220607_EURUSD_historical_data.csv")
 #df_EURUSD = df_EURUSD[df_EURUSD.CLOSE != "."]
@@ -61,6 +88,8 @@ delta = d1 - d0
 
 df_EURUSD=data[data.Close !="."] 
 df_EURUSD= np.reshape(df_EURUSD,((round(delta.days/1.398)), 7))
+#df_EURUSD= np.reshape(df_EURUSD,((round(delta.days*0.719)), 7))
+#df_EURUSD= np.reshape(df_EURUSD,(round(delta.days), 7))
 
 import numpy as np
 import pandas as pd
