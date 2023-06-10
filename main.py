@@ -286,4 +286,4 @@ df1 = pd.DataFrame(pred_mse)
 df1=df1.tail(5)
 df1
 
-streamlit run main.py
+!streamlit run main.py
